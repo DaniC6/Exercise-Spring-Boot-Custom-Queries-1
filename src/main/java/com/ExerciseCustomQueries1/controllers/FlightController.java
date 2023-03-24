@@ -3,6 +3,7 @@ package com.ExerciseCustomQueries1.controllers;
 import com.ExerciseCustomQueries1.entities.Flight;
 import com.ExerciseCustomQueries1.enums.SetStatus;
 import com.ExerciseCustomQueries1.repositories.FlightRepository;
+import com.ExerciseCustomQueries1.services.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,20 +19,10 @@ import java.util.Random;
 public class FlightController {
 
     @Autowired
-    private FlightRepository flightRepository;
+    private FlightService flightService;
 
     @GetMapping
     public List<Flight> getFlights() {
-        List<Flight> flights = new ArrayList<> ();
-        Random random = new Random ();
-        for (int i = 0; i < 50; i++) {
-            Flight flight = new Flight ();
-            flight.setDescription ( "Flight " + i );
-            flight.setFromAirport ( "Airport " + random.ints ());
-            flight.setToAirport ( "Airport " + random.ints ());
-            flight.setStatus ( SetStatus.ONTIME );
-            flights.add ( flight );
-        }
-        return flightRepository.saveAll ( flights );
+        return flightService.getFlights();
     }
 }
